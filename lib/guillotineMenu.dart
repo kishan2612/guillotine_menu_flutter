@@ -9,6 +9,7 @@ class GuillotineMenu extends StatefulWidget {
 
 class _GuillotineMenuState extends State<GuillotineMenu>
     with SingleTickerProviderStateMixin {
+  final GlobalKey _menuIconkey = GlobalKey();
 
   Animation<double> _menuAnimation;
 
@@ -19,6 +20,13 @@ class _GuillotineMenuState extends State<GuillotineMenu>
   @override
   void initState() {
     super.initState();
+
+/*
+This is to check the offset of the menu Icon in top left corner.
+
+    // WidgetsBinding.instance.addPostFrameCallback(_getPosition);
+
+*/
 
     _guillotineMenuAnimationController = AnimationController(
       vsync: this,
@@ -32,10 +40,18 @@ class _GuillotineMenuState extends State<GuillotineMenu>
         curve: Curves.bounceOut,
         reverseCurve: Curves.bounceIn));
 
-        _toolbarTitleFadeAnimation = Tween(
-          begin: 1.0,
-          end: 0.0
-        ).animate(_guillotineMenuAnimationController);
+    _toolbarTitleFadeAnimation =
+        Tween(begin: 1.0, end: 0.0).animate(_guillotineMenuAnimationController);
+  }
+
+  _getPosition(_) {
+    _getOffset();
+  }
+
+  void _getOffset() {
+    final RenderBox offsetBox = _menuIconkey.currentContext.findRenderObject();
+    final Offset offset = offsetBox.localToGlobal(Offset.zero);
+    print("Offset : $offset");
   }
 
   @override
@@ -45,14 +61,14 @@ class _GuillotineMenuState extends State<GuillotineMenu>
   }
 
   void _onMenuIconClick() {
-    if (_isBackpanelVisible()) {
+    if (_isMenuVisible()) {
       _guillotineMenuAnimationController.reverse();
     } else {
       _guillotineMenuAnimationController.forward();
     }
   }
 
-  bool _isBackpanelVisible() {
+  bool _isMenuVisible() {
     final AnimationStatus status = _guillotineMenuAnimationController.status;
     return status == AnimationStatus.completed ||
         status == AnimationStatus.forward;
@@ -62,7 +78,7 @@ class _GuillotineMenuState extends State<GuillotineMenu>
   Widget build(BuildContext context) {
     return Transform.rotate(
       angle: _menuAnimation.value,
-      origin: Offset(25.0, 80.0),
+      origin: Offset(32.0, 76.0),
       alignment: Alignment.topLeft,
       child: Material(
         color: Colors.amber,
@@ -102,6 +118,7 @@ class _GuillotineMenuState extends State<GuillotineMenu>
 
   Widget _toolbarIcon() {
     return IconButton(
+      key: _menuIconkey,
       icon: Icon(
         Icons.menu,
         color: Colors.black,
@@ -113,7 +130,7 @@ class _GuillotineMenuState extends State<GuillotineMenu>
   Widget _toolbarTitle() {
     return FadeTransition(
       opacity: _toolbarTitleFadeAnimation,
-          child: Container(
+      child: Container(
         margin: const EdgeInsets.only(left: 16),
         child: Text(
           "Avengers",
@@ -125,6 +142,7 @@ class _GuillotineMenuState extends State<GuillotineMenu>
       ),
     );
   }
+
   Widget _menuItems() {
     return Container(
       color: Colors.amber,
