@@ -9,7 +9,11 @@ class GuillotineMenu extends StatefulWidget {
 
 class _GuillotineMenuState extends State<GuillotineMenu>
     with SingleTickerProviderStateMixin {
+
   Animation<double> _menuAnimation;
+
+  Animation<double> _toolbarTitleFadeAnimation;
+
   AnimationController _guillotineMenuAnimationController;
 
   @override
@@ -18,7 +22,7 @@ class _GuillotineMenuState extends State<GuillotineMenu>
 
     _guillotineMenuAnimationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 1000),
+      duration: Duration(milliseconds: 750),
     )..addListener(() {
         setState(() {});
       });
@@ -27,6 +31,11 @@ class _GuillotineMenuState extends State<GuillotineMenu>
         parent: _guillotineMenuAnimationController,
         curve: Curves.bounceOut,
         reverseCurve: Curves.bounceIn));
+
+        _toolbarTitleFadeAnimation = Tween(
+          begin: 1.0,
+          end: 0.0
+        ).animate(_guillotineMenuAnimationController);
   }
 
   @override
@@ -102,18 +111,20 @@ class _GuillotineMenuState extends State<GuillotineMenu>
   }
 
   Widget _toolbarTitle() {
-    return Container(
-      margin: const EdgeInsets.only(left: 16),
-      child: Text(
-        "Avengers",
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 20,
+    return FadeTransition(
+      opacity: _toolbarTitleFadeAnimation,
+          child: Container(
+        margin: const EdgeInsets.only(left: 16),
+        child: Text(
+          "Avengers",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+          ),
         ),
       ),
     );
   }
-
   Widget _menuItems() {
     return Container(
       color: Colors.amber,
