@@ -11,6 +11,8 @@ class _GuillotineMenuState extends State<GuillotineMenu>
     with SingleTickerProviderStateMixin {
   final GlobalKey _menuIconkey = GlobalKey();
 
+  final Color _menuBg = Color.fromRGBO(76, 63, 92, 1.0);
+
   Animation<double> _menuAnimation;
 
   Animation<double> _toolbarTitleFadeAnimation;
@@ -35,10 +37,14 @@ This is to check the offset of the menu Icon in top left corner.
         setState(() {});
       });
 
+    // Menu Animation
+
     _menuAnimation = Tween(begin: -pi / 2, end: 0.0).animate(CurvedAnimation(
         parent: _guillotineMenuAnimationController,
         curve: Curves.bounceOut,
         reverseCurve: Curves.bounceIn));
+
+    // Toolbar Title Transition
 
     _toolbarTitleFadeAnimation =
         Tween(begin: 1.0, end: 0.0).animate(_guillotineMenuAnimationController);
@@ -81,7 +87,7 @@ This is to check the offset of the menu Icon in top left corner.
       origin: Offset(32.0, 76.0),
       alignment: Alignment.topLeft,
       child: Material(
-        color: Colors.amber,
+        color: _menuBg,
         child: SafeArea(
           child: Container(
             height: double.infinity,
@@ -121,7 +127,7 @@ This is to check the offset of the menu Icon in top left corner.
       key: _menuIconkey,
       icon: Icon(
         Icons.menu,
-        color: Colors.black,
+        color: Colors.white,
       ),
       onPressed: () => _onMenuIconClick(),
     );
@@ -133,11 +139,12 @@ This is to check the offset of the menu Icon in top left corner.
       child: Container(
         margin: const EdgeInsets.only(left: 16),
         child: Text(
-          "Avengers",
+          "Activity",
           style: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-          ),
+              color: Colors.white,
+              fontSize: 24,
+              letterSpacing: 2.0,
+              fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -145,25 +152,52 @@ This is to check the offset of the menu Icon in top left corner.
 
   Widget _menuItems() {
     return Container(
-      color: Colors.amber,
       padding: const EdgeInsets.all(16),
       child: Column(
         children: <Widget>[
           ListTile(
-            leading: Icon(Icons.message),
-            title: Text("Message"),
+            leading: Icon(
+              Icons.account_circle,
+              color: Colors.white,
+            ),
+            title: Text(
+              "PROFILE",
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
           ),
           ListTile(
-            leading: Icon(Icons.message),
-            title: Text("Message"),
+            leading: Icon(
+              Icons.rss_feed,
+              color: Colors.white,
+            ),
+            title: Text(
+              "FEED",
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
           ),
           ListTile(
-            leading: Icon(Icons.message),
-            title: Text("Message"),
+            leading: Icon(
+              Icons.local_activity,
+              color: Colors.white,
+            ),
+            title: Text(
+              "ACTIVITY",
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
           ),
           ListTile(
-            leading: Icon(Icons.message),
-            title: Text("Message"),
+            leading: Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+            title: Text(
+              "SETTINGS",
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
           )
         ],
       ),

@@ -8,9 +8,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      title: 'Flutter Guillotine Menu',
+      theme: ThemeData(         
       ),
       home: MyHomePage(title: 'Flutter Guillotine menu'),
     );
@@ -50,7 +49,10 @@ class _MyHomePageState extends State<MyHomePage> {
      
       body: Container(
         child: Center(
-          child: Text("Hello World"),
+          child: Text("Hello World",
+          style: TextStyle(
+            fontSize: 32.0
+          ),),
         ),
       ),
     );
