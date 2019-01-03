@@ -84,7 +84,7 @@ This is to check the offset of the menu Icon in top left corner.
   Widget build(BuildContext context) {
     return Transform.rotate(
       angle: _menuAnimation.value,
-      origin: Offset(32.0, 76.0),
+      origin: Offset(32.0, 50.0),
       alignment: Alignment.topLeft,
       child: Material(
         color: _menuBg,
@@ -114,7 +114,7 @@ This is to check the offset of the menu Icon in top left corner.
     return RotatedBox(
       quarterTurns: 1,
       child: Container(
-        padding: const EdgeInsets.only(left: 16),
+        // padding: const EdgeInsets.only(left: 16),
         child: Row(
           children: <Widget>[_toolbarIcon(), _toolbarTitle()],
         ),

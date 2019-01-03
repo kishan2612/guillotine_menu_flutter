@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:guillotine_menu_flutter/guillotineMenu.dart';
 
 void main() => runApp(MyApp());
@@ -25,6 +26,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -45,6 +47,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
   Widget _backView(BuildContext context){
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+  statusBarColor: Color.fromRGBO(39, 32, 48, 1.0), //or set color with: Color(0xFF0000FF)
+));
     return Scaffold(
      
       body: Container(
